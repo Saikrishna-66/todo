@@ -1,74 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import './signin.css';
+import { signin } from "../../service/authService";
 
 function Signin() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSignin = async (e) => {
     e.preventDefault();
-    console.log({ email, password });
-    // TODO: Add login logic here (API call to backend)
+    try {
+      const response = await signin({ username, password });
+      alert("Login successful!");
+      console.log("Token:", response.data.token);
+    } catch (error) {
+      alert("Login failed: " + (error.response?.data?.error || "Unknown error"));
+    }
   };
 
   return (
-    <>
-      <div className="auth-page-container">
-        <div className="phone-mockup">
-          <div className="dynamic-island"></div>
+    <div className="signin-container">
+      <div className="signin-box">
+        <h1>Welcome Back</h1>
+        <p className="subtitle">Sign in to continue</p>
 
-          <div className="content-layer">
-            <div className="header-section">
-              <h1>Welcome Back</h1>
-              <p>Sign in to continue</p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="form-section">
-              {/* Email Input */}
-              <div className="input-group">
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pill-input"
-                  required
-                />
-              </div>
-
-              {/* Password Input */}
-              <div className="input-group">
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pill-input"
-                  required
-                />
-              </div>
-
-              {/* Submission Action */}
-              <div className="action-row" style={{ marginTop: '20px' }}>
-                <span className="action-label">Sign in</span>
-                <button type="submit" className="circle-submit-btn">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
-              </div>
-            </form>
-
-            {/* Redirection Link */}
-            <div className="social-footer">
-              <p className="social-footer-text">
-                Don’t have an account? <a href="#signup">Sign up</a>
-              </p>
-            </div>
+        <form onSubmit={handleSignin}>
+          <div className="input-group">
+            <input
+              type="text"
+              placeholder="Username"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              autoComplete="username"
+            />
           </div>
-        </div>
+
+          <div className="input-group">
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
+            />
+          </div>
+
+          <button type="submit" className="signin-btn">Sign In</button>
+        </form>
+
+        <p className="redirect-text">
+          Don’t have an account? <a href="/signup">Sign up</a>
+        </p>
       </div>
-    </>
+    </div>
   );
 }
 

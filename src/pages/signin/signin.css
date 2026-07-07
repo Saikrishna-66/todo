@@ -1,45 +1,93 @@
-.auth-page-container {
+/* Page setup */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #e0e7ff, #f9fafb);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
-.phone-mockup {
-  background-color: #fff;
-  border-radius: 40px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  width: 350px;
-  padding: 30px;
-}
-
-.header-section h1 {
-  font-size: 24px;
-  margin-bottom: 5px;
-}
-
-.header-section p {
-  color: #666;
-  margin-bottom: 20px;
-}
-
-.pill-input {
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  padding: 10px 15px;
+/* Container */
+.signin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 
-.circle-submit-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  cursor: pointer;
+/* Signin box */
+.signin-box {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  width: 350px;
+  text-align: center;
 }
 
-.circle-submit-btn:hover {
+/* Header */
+.signin-box h1 {
+  margin-bottom: 10px;
+  font-size: 28px;
+  color: #222;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+/* Inputs */
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #007bff;
+}
+
+/* Button */
+.signin-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signin-btn:hover {
   background-color: #0056b3;
+}
+
+/* Redirect text */
+.redirect-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+.redirect-text a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.redirect-text a:hover {
+  text-decoration: underline;
 }
