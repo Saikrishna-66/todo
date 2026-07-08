@@ -1,25 +1,44 @@
 import React, { useState } from "react";
 import './signin.css';
+import Toast from "../../components/Toast";
 import { signin } from "../../service/authService";
+import { useNavigate } from "react-router";
 
 function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [toast, setToast] = useState({ message: "", type: "info" });
+
+  const navigate = useNavigate();
 
   const handleSignin = async (e) => {
     e.preventDefault();
     try {
       const response = await signin({ username, password });
-      alert("Login successful!");
-      console.log("Token:", response.data.token);
+      const token = response?.data?.token || response?.data?.access_token;
+      const message = response?.data?.message || "Login successful!";
+
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+
+      setToast({ message, type: "success" });
+      console.log("Token:", token);
+      navigate("/home");
     } catch (error) {
-      alert("Login failed: " + (error.response?.data?.error || "Unknown error"));
+      const apiMessage = error?.response?.data?.message || error?.response?.data?.error || "Invalid credentials";
+      setToast({ message: apiMessage, type: "error" });
     }
   };
 
   return (
     <div className="signin-container">
       <div className="signin-box">
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast({ message: "", type: "info" })}
+        />
         <h1>Welcome Back</h1>
         <p className="subtitle">Sign in to continue</p>
 

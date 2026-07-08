@@ -6,6 +6,7 @@ function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userType, setUserType] = useState('employee'); // ✅ dropdown state
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -15,10 +16,13 @@ function Signup() {
       email: email,
       password: password,
       password2: password,
-      user_type: 'employee', // or 'company'
+      user_type: userType, // ✅ dynamic from dropdown
     };
 
     try {
+      // ✅ remove any old token before signup
+      localStorage.removeItem("token");
+
       const response = await signup(payload);
       console.log(response.data);
     } catch (error) {
@@ -45,14 +49,14 @@ function Signup() {
           </div>
 
           <div className="input-group">
-           <input
-             type="email"
-             placeholder="Email"
-             required
-             value={email}
-             onChange={(e) => setEmail(e.target.value)}
-             autoComplete="email"
-          />
+            <input
+              type="email"
+              placeholder="Email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+            />
           </div>
 
           <div className="input-group">
@@ -64,6 +68,19 @@ function Signup() {
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
             />
+          </div>
+
+          {/* ✅ Dropdown for user type */}
+          <div className="input-group">
+            <select
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+              required
+              className="signup-select"
+            >
+              <option value="employee">Employee</option>
+              <option value="company">Company</option>
+            </select>
           </div>
 
           <button type="submit" className="signup-btn">
