@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -13,9 +13,10 @@ api.interceptors.request.use(
     // Retrieve the token from local storage (or your state manager)
     const token = localStorage.getItem('token');
     
-    // If the token exists, add it to the Authorization header
+    // If the token exists, add it to the Authorization header.
+    // Backend returns Django TokenAuthentication tokens, use the `Token` prefix.
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Token ${token}`;
     }
     
     return config;
